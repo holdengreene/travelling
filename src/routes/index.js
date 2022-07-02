@@ -8,11 +8,11 @@ export async function post({ request }) {
 
 	const country = countries.find((country) => country.name === countryName);
 
-	if (country?.code) {
+	if (country) {
 		return {
 			status: 200,
 			body: {
-				countryCode: country.code
+				country
 			}
 		};
 	}

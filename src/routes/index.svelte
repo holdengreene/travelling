@@ -1,16 +1,51 @@
-<script>
+<script lang="ts">
+	import { browser } from '$app/env';
 	import CountrySelector from '$lib/components/CountrySelector.svelte';
 
-	export let countryCode = '';
+	export let country: { name: string; code: string } | null;
+
+	if (browser) {
+		if (country) {
+			localStorage.setItem('country', JSON.stringify(country));
+		}
+
+		country = localStorage.getItem('country')
+			? JSON.parse(localStorage.getItem('country')!)
+			: null;
+	}
+
+	function clearCountry() {
+		country = null;
+		localStorage.removeItem('country');
+	}
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+{#if country?.name}
+	<button class="changeCountry" on:click={clearCountry}
+		>Your currently selected country is {country?.name}
+		<span class="changeCountrySpan">(click here to change it)</span></button
+	>
+{/if}
 
-<h2>Country Code: {countryCode}</h2>
+{#if country === null}
+	<form method="post">
+		<CountrySelector />
 
-<form method="post">
-	<CountrySelector />
+		<button type="submit">Submit</button>
+	</form>
+{/if}
 
-	<button type="submit">Submit</button>
-</form>
+<style>
+	.changeCountry {
+		background-color: transparent;
+		border: none;
+	}
+
+	.changeCountry:hover {
+		cursor: pointer;
+	}
+
+	.changeCountrySpan {
+		text-decoration: underline;
+	}
+</style>
