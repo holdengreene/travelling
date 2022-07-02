@@ -14,7 +14,9 @@ export async function get({ request: { headers } }) {
 	}
 
 	return {
-		status: 200
+		body: {
+			country: null
+		}
 	};
 }
 
