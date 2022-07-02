@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CountrySelector from '$lib/components/CountrySelector.svelte';
+	import Geolocation from '$lib/components/Geolocation.svelte';
 
 	interface ICountry {
 		name: string;
@@ -22,9 +23,10 @@
 		>
 	{/if}
 
-	<div class="grid place-items-center h-screen">
+	<div class="flex flex-col items-center justify-center h-screen gap-2">
 		{#if !country?.name}
 			<CountrySelector />
+			<Geolocation />
 		{/if}
 	</div>
 </main>

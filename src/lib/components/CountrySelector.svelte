@@ -2,7 +2,7 @@
 	import countries from '$lib/json/countries.json';
 </script>
 
-<form method="post" class="w-1/3">
+<form method="post" class="md:w-1/3 sm:w-full">
 	<label for="country" class="text-lg font-bold">Country</label>
 
 	<div class="flex">
