@@ -1,22 +1,16 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import CountrySelector from '$lib/components/CountrySelector.svelte';
 
-	export let country: { name: string; code: string } | null;
-
-	if (browser) {
-		if (country) {
-			localStorage.setItem('country', JSON.stringify(country));
-		}
-
-		country = localStorage.getItem('country')
-			? JSON.parse(localStorage.getItem('country')!)
-			: null;
+	interface ICountry {
+		name: string;
+		code: string;
 	}
+
+	export let country: ICountry | null;
 
 	function clearCountry() {
 		country = null;
-		localStorage.removeItem('country');
+		document.cookie = 'country=; Max-Age=0; path=/; Secure;';
 	}
 </script>
 
